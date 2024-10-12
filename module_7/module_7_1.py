@@ -1,8 +1,3 @@
-from pprint import pprint
-
-from pyexpat.errors import messages
-
-
 class Product:
     def __init__(self, name, weight, category):
         self.name = name
@@ -32,7 +27,6 @@ class Shop:
             else:
                 print(f'Продукт {str(product)} уже есть в магазине')
         file.close()
-
 
 
 s1 = Shop()
