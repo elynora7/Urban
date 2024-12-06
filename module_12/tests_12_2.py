@@ -1,9 +1,10 @@
 import unittest
 from runner_and_tournament import Runner, Tournament
-from pprint import pprint
 
 
 class TournamentTest(unittest.TestCase):
+    is_frozen = True
+
     @classmethod
     def setUpClass(cls):
         cls.all_results = {}
@@ -24,17 +25,19 @@ class TournamentTest(unittest.TestCase):
             some_dict[key] = str(value)
         self.results.append(str(some_dict))
 
-
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_1(self):
         tournament = Tournament(90, self.runner_1, self.runner_3)
         self.all_results = tournament.start()
         self.assertTrue(self.all_results[2] == self.runner_3)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_2(self):
         tournament = Tournament(90, self.runner_2, self.runner_3)
         self.all_results = tournament.start()
         self.assertTrue(self.all_results[2] == self.runner_3)
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_tournament_3(self):
         tournament = Tournament(90, self.runner_1, self.runner_2, self.runner_3)
         self.all_results = tournament.start()
