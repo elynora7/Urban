@@ -15,6 +15,9 @@ start_menu = ReplyKeyboardMarkup(
         [
             KeyboardButton(text='Информация'),
             KeyboardButton(text='Рассчитать')
+        ],
+        [
+            KeyboardButton(text='Купить')
         ]
     ], resize_keyboard=True)
 
@@ -23,11 +26,37 @@ button_calories = InlineKeyboardButton(text='Рассчитать норму к�
 button_formulas = InlineKeyboardButton(text='Формулы расчёта', callback_data='formulas')
 kb.row(button_formulas, button_calories)
 
+inline_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Продукт 1', callback_data='product_buying'),
+            InlineKeyboardButton(text='Продукт 2', callback_data='product_buying'),
+            InlineKeyboardButton(text='Продукт 3', callback_data='product_buying'),
+            InlineKeyboardButton(text='Продукт 4', callback_data='product_buying')
+        ],
+    ]
+)
+
 
 class UserState(StatesGroup):
     age = State()
     growth = State()
     weight = State()
+
+
+@dp.message_handler(text='Купить')
+async def get_buying_list(message):
+    for i in range(1,5):
+        await message.answer(f'Название: Продукт {i} | Описание: описание {i} | Цена: {i * 100}')
+        with open(f'images/{i}.jpg', 'rb') as img:
+            await message.answer_photo(img)
+    await message.answer('Выберите продукт для покупки:', reply_markup=inline_menu)
+
+
+@dp.callback_query_handler(text='product_buying')
+async def send_confirm_message(call):
+    await call.message.answer('Вы успешно приобрели продукт!')
+    await call.answer()
 
 
 @dp.message_handler(text='Рассчитать')
