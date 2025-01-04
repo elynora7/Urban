@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from task2.views import func_index, classIndex
+from django.views.generic import TemplateView
+from task3.views import games
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('func/', func_index),
     path('class/', classIndex.as_view()),
+    path('platform/', TemplateView.as_view(template_name='platform.html')),
+    path('games/', games),
+    path('cart/', TemplateView.as_view(template_name='cart.html')),
 ]
