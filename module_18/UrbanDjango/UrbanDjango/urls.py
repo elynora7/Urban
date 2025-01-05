@@ -20,6 +20,7 @@ from task2.views import func_index, classIndex
 from django.views.generic import TemplateView
 # from task3.views import games
 from task4.views import games, platform, cart
+from task5.views import sign_up_by_django, sign_up_by_html
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +31,6 @@ urlpatterns = [
     path('games/', games),
     # path('cart/', TemplateView.as_view(template_name='cart.html')),
     path('cart/', cart),
+    path('django_sign_up/', sign_up_by_django),
+    path('html_sign_up/', sign_up_by_html),
 ]
