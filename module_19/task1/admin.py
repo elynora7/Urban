@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Bayer, Game
-
+from .models import *
 
 # Register your models here.
+admin.site.register(News)
+
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):

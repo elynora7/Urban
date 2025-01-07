@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .forms import UserRegister
 from .models import *
@@ -9,6 +10,14 @@ def platform(request):
     return render(request, 'platform.html')
 
 
+def news(request):
+    news = News.objects.all().order_by('-date')
+    paginator = Paginator(news, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'news.html', {'news': page_obj})
+
+
 def games(request):
     games = Game.objects.all()
     context = {'games': games}
@@ -17,9 +26,6 @@ def games(request):
 
 def cart(request):
     return render(request, 'cart.html')
-
-
-users = ['admin', 'user1', 'user2', 'user3']
 
 
 def sign_up_by_django(request):
